@@ -97,6 +97,9 @@ int main() {
           double steer_value = j[1]["steering_angle"];
           double throttle_value = j[1]["throttle"]; 
 
+          double latency = .1;
+          double Lf = 2.67;
+
           px += v * cos(psi) * latency;
           py += v * sin(psi) * latency;
           psi -= v * steer_value / Lf * latency;
@@ -107,7 +110,7 @@ int main() {
           for (int i = 0; i < ptsx.size(); i++)
           {
             double shift_x = ptsx[i] - px;
-            double shift_y = ptsx[i] - py;
+            double shift_y = ptsy[i] - py;
 
             // initial orientation angle = 90
             ptsx[i] = shift_x * cos(0-psi) - shift_y * sin(0-psi);
