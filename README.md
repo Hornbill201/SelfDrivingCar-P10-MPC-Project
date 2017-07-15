@@ -117,3 +117,16 @@ The prediction horizon I settled on was one second, with `N = 10` and `dt = .1`.
 With these values, the can can complete the track at both low (30mph) and high (200mph) speed. I tried different combinations of `N` and `dt`, including (`N=20, dt=0.05`), (`N=15, dt=0.05`),  (`N=10, dt=0.05`), (`N=20, dt=0.1`) and so on. With higher `N` value, if the vehicle "overshot" the reference trajectory, it would begin to oscillate wildly and drive off the track. With lower value of `N`, the vehicle may drive straight off the track.
 
 Among all the pairs of parameters, (`N = 10, dt = .1`) performs the best result. 
+
+## Polynomial Fitting and MPC Preprocessing
+The point are first transformed into the vehicle's coordinate system, making the first point the origin. This is done by subtracting each point from the current position of the vehicle.
+
+Next, the orientation is also transformed to 0 so that the heading is straight forward. Each point is rotated by psi degrees.
+
+After that the vector of points is converted to an Eigen vector so that it is ready to be an argument in the polyfit function where the points are fitted to a 3rd order polynomial. That polynomial is then evaluated using the polyeval function to calculate the cross-track error.
+
+## Model Predictive Control with Latency
+
+A delay of 100 ms need to be taken care of after the MPC works. When this latency was first introduced, the model oscillated about the reference trajectory and, at high speeds, drove off the track.
+
+In order to deal with the latency, I set the initial states to be the states after 100 ms. This allows the vehicle to "look ahead" and correct for where it will be in the future instead of where it is currently positioned. 
