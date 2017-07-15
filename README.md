@@ -5,10 +5,14 @@ Self-Driving Car Engineer Nanodegree Program
 
 The purpose of this project is to implement a model predictive controller (MPC) to drive a vehicle along a desired path (reference trajectory). It is tested in a simulator provided by Udacity. The simulator outputs x and y positions, speed, and orientation of the vehicle along with the reference trajectory.
 
-In the simulator, the reference trajectory is show as a **YELLOW** line and the predicted path is in **GREEN**. Below are images of the vehicle driving 51 mph around a curve and 81 mph on a straighter path with speed limit set to 100 mph and 98 mph around a curve with speed limit set to 200 mph.
+In the simulator, the reference trajectory is show as a **YELLOW** line and the predicted path is in **GREEN**.  
 
+The following three sample images show the car driving on the track in the simulator.  
+* Vehicle driving 62 mph in a left-turn curve  
 ![img](figs/pic1.png)
+* Vehicle driving 66 mph in a right-turn curve  
 ![img](figs/pic2.png)
+* Vehicle driving 95 mph in as traighter path with speed limit set to 100 mph  
 ![img](figs/pic3.png)
 
 ## Dependencies
@@ -76,4 +80,30 @@ for instructions and the project rubric.
 
 ## Model and Implementation Discussions
 ---
+## Model
 
+The model used is a **kinematic bicycle model**. The model state includes:  
+* position `x`
+* position `y`
+* orientation `psi`
+* velocity `v`
+* cross-track error `cte`
+* orientation error `epsi`
+
+The control inputs are:  
+* steering angle `delta`
+* acceleration `a`
+
+The moving model of the vehicle is showing below:
+```
+// values at timestep [t+1] based on values at timestep [t] after dt seconds 
+// Lf is the distance between the front of the vehicle and the center of gravity
+
+x[t+1] = x[t] + v[t] * cos(psi[t]) * dt;
+y[t+1] = y[t] + v[t] * sin(psi[t]) * dt;
+psi[t+1] = psi[t] + v[t]/Lf * delta[t] * dt;
+v[t+1] = v[t] + a[t] * dt;
+cte[t+1] = f(x[t]) - y[t] + v[t] * sin(epsi[t]) * dt;
+epsi[t+1] = psi[t] - psi_des + v[t]/Lf * delta[t] * dt;
+
+```
