@@ -8,11 +8,11 @@ The purpose of this project is to implement a model predictive controller (MPC) 
 In the simulator, the reference trajectory is show as a **YELLOW** line and the predicted path is in **GREEN**.  
 
 The following three sample images show the car driving on the track in the simulator.  
-* Vehicle driving 62 mph in a left-turn curve  
+* **Vehicle driving 62 mph in a left-turn curve**   
 ![img](figs/pic1.png)
-* Vehicle driving 66 mph in a right-turn curve  
+* **Vehicle driving 66 mph in a right-turn curve**  
 ![img](figs/pic2.png)
-* Vehicle driving 95 mph in as traighter path with speed limit set to 100 mph  
+* **Vehicle driving 95 mph in as traighter path with speed limit set to 100 mph**  
 ![img](figs/pic3.png)
 
 ## Dependencies
@@ -78,8 +78,8 @@ More information is only accessible by people who are already enrolled in Term 2
 of CarND. If you are enrolled, see [the project page](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/f1820894-8322-4bb3-81aa-b26b3c6dcbaf/lessons/b1ff3be0-c904-438e-aad3-2b5379f0e0c3/concepts/1a2255a0-e23c-44cf-8d41-39b8a3c8264a)
 for instructions and the project rubric.
 
-## Model and Implementation Discussions
 ---
+
 ## Model
 
 The model used is a **kinematic bicycle model**. The model state includes:  
@@ -107,3 +107,13 @@ cte[t+1] = f(x[t]) - y[t] + v[t] * sin(epsi[t]) * dt;
 epsi[t+1] = psi[t] - psi_des + v[t]/Lf * delta[t] * dt;
 
 ```
+
+## Timestep Length and Elapsed Duration (`N` & `dt`)
+
+The prediction horizon `T` is the product of the timestep length `N` and elapsed duration `dt`. Timestep length refers to the number of timesteps in the horizon and elapsed duration is how much time elapses between each actuation.
+
+The prediction horizon I settled on was one second, with `N = 10` and `dt = .1`.
+
+With these values, the can can complete the track at both low (30mph) and high (200mph) speed. I tried different combinations of `N` and `dt`, including (`N=20, dt=0.05`), (`N=15, dt=0.05`),  (`N=10, dt=0.05`), (`N=20, dt=0.1`) and so on. With higher `N` value, if the vehicle "overshot" the reference trajectory, it would begin to oscillate wildly and drive off the track. With lower value of `N`, the vehicle may drive straight off the track.
+
+Among all the pairs of parameters, (`N = 10, dt = .1`) performs the best result. 
