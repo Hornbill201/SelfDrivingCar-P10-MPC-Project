@@ -3,6 +3,14 @@ Self-Driving Car Engineer Nanodegree Program
 
 ---
 
+The purpose of this project is to implement a model predictive controller (MPC) to drive a vehicle along a desired path (reference trajectory). It is tested in a simulator provided by Udacity. The simulator outputs x and y positions, speed, and orientation of the vehicle along with the reference trajectory.
+
+In the simulator, the reference trajectory is show as a **YELLOW** line and the predicted path is in **GREEN**. Below are images of the vehicle driving 51 mph around a curve and 81 mph on a straighter path with speed limit set to 100 mph and 98 mph around a curve with speed limit set to 200 mph.
+
+![img](figs/pic1.png)
+![img](figs/pic2.png)
+![img](figs/pic3.png)
+
 ## Dependencies
 
 * cmake >= 3.5
@@ -44,7 +52,6 @@ Self-Driving Car Engineer Nanodegree Program
 
 ## Basic Build Instructions
 
-
 1. Clone this repo.
 2. Make a build directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
@@ -58,19 +65,6 @@ is the vehicle starting offset of a straight line (reference). If the MPC implem
 2. The `lake_track_waypoints.csv` file has the waypoints of the lake track. You could use this to fit polynomials and points and see of how well your model tracks curve. NOTE: This file might be not completely in sync with the simulator so your solution should NOT depend on it.
 3. For visualization this C++ [matplotlib wrapper](https://github.com/lava/matplotlib-cpp) could be helpful.
 
-## Editor Settings
-
-We've purposefully kept editor configuration files out of this repo in order to
-keep it as simple and environment agnostic as possible. However, we recommend
-using the following settings:
-
-* indent using spaces
-* set tab width to 2 spaces (keeps the matrices in source code aligned)
-
-## Code Style
-
-Please (do your best to) stick to [Google's C++ style guide](https://google.github.io/styleguide/cppguide.html).
-
 ## Project Instructions and Rubric
 
 Note: regardless of the changes you make, your project must be buildable using
@@ -80,8 +74,6 @@ More information is only accessible by people who are already enrolled in Term 2
 of CarND. If you are enrolled, see [the project page](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/f1820894-8322-4bb3-81aa-b26b3c6dcbaf/lessons/b1ff3be0-c904-438e-aad3-2b5379f0e0c3/concepts/1a2255a0-e23c-44cf-8d41-39b8a3c8264a)
 for instructions and the project rubric.
 
-## Hints!
-
-* You don't have to follow this directory structure, but if you do, your work
-  will span all of the .cpp files here. Keep an eye out for TODOs.
+## Model and Implementation Discussions
+---
 
